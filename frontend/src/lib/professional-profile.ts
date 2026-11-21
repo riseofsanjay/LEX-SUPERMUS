@@ -1,4 +1,4 @@
-export type ProfessionalRole = "STUDENT" | "ADVOCATE";
+export type ProfessionalRole = "STUDENT" | "ADVOCATE" | "LAW_FIRM" | "ADMIN";
 export type ProfessionalProfileSectionKey =
   | "experience"
   | "education"

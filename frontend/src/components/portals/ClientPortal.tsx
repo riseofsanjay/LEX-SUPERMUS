@@ -12,12 +12,26 @@ const TABS = [
   { key: "lawyers", label: "Find a lawyer" },
   { key: "assistant", label: "Organise an issue" },
   { key: "documents", label: "Documents" },
+  { key: "library", label: "Legal Library" },
+  { key: "ai", label: "Legal AI" },
 ];
 
 export default function ClientPortal() {
   const [tab, setTab] = useState("overview");
   const [meetingMode, setMeetingMode] = useState<MeetingMode>("IN_PERSON");
   const [requestNotice, setRequestNotice] = useState("");
+
+  function selectTab(key: string) {
+    if (key === "library") {
+      window.location.assign("/library");
+      return;
+    }
+    if (key === "ai") {
+      window.location.assign("/ai");
+      return;
+    }
+    setTab(key);
+  }
 
   function handleConsultationSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -29,7 +43,7 @@ export default function ClientPortal() {
   }
 
   return (
-    <PortalShell title="Client Portal" tabs={TABS} active={tab} onChange={setTab}>
+    <PortalShell title="Client Portal" tabs={TABS} active={tab} onChange={selectTab}>
       {tab === "overview" && (
         <div className="client-overview">
           <div className="client-welcome">

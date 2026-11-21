@@ -3,7 +3,7 @@ export type ProfessionalAuthAction = "register" | "login";
 export type ProfessionalAuthResponse = {
   id: string;
   email: string;
-  role: "STUDENT" | "ADVOCATE";
+  role: "STUDENT" | "ADVOCATE" | "LAW_FIRM" | "ADMIN";
   verificationStatus: "NOT_REQUIRED" | "PENDING" | "VERIFIED" | "REJECTED";
   token: string;
   expiresIn: number;

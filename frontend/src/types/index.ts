@@ -1,7 +1,7 @@
 /** Shared frontend types for LEX SUPERMUS. */
 
 /** Roles known to the platform (mirrors UserRole enums in each service). */
-export type UserRole = "STUDENT" | "ADVOCATE" | "CLIENT" | "ADMIN" | "REVIEWER";
+export type UserRole = "STUDENT" | "ADVOCATE" | "LAW_FIRM" | "CLIENT" | "ADMIN" | "REVIEWER";
 
 /** Advocate Bar Council verification states (advocate-service workflow). */
 export type VerificationStatus =

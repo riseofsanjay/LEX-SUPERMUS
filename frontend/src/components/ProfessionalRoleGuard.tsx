@@ -22,7 +22,13 @@ export default function ProfessionalRoleGuard({
     }
 
     if (profile.role !== role) {
-      router.replace(profile.role === "STUDENT" ? "/student" : "/advocate");
+      router.replace(
+        profile.role === "STUDENT"
+          ? "/student"
+          : profile.role === "LAW_FIRM"
+            ? "/firm"
+            : "/advocate",
+      );
     }
   }, [profile, role, router]);
 

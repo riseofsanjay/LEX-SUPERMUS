@@ -9,7 +9,7 @@ import {
 } from "react";
 import { patchProfessionalAuthProfile } from "@/lib/professional-auth.mjs";
 
-export type ProfessionalRole = "STUDENT" | "ADVOCATE";
+export type ProfessionalRole = "STUDENT" | "ADVOCATE" | "LAW_FIRM" | "ADMIN";
 export type ProfessionalVerificationStatus =
   | "NOT_REQUIRED"
   | "PENDING"

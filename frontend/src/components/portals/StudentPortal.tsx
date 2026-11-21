@@ -11,6 +11,9 @@ import StudentResumeBuilder from "@/components/StudentResumeBuilder";
 const TABS = [
   { key: "overview", label: "My Profile" },
   { key: "jobs", label: "Jobs & Internships" },
+  { key: "network", label: "Professional Network" },
+  { key: "library", label: "Legal Library" },
+  { key: "ai", label: "Legal AI" },
 ];
 
 /**
@@ -42,6 +45,18 @@ export default function StudentPortal() {
   }, []);
 
   function selectTab(key: string) {
+    if (key === "network") {
+      window.location.assign("/feed");
+      return;
+    }
+    if (key === "library") {
+      window.location.assign("/library");
+      return;
+    }
+    if (key === "ai") {
+      window.location.assign("/ai");
+      return;
+    }
     setTab(key);
     if (key === "jobs") setJobsSection("opportunities");
     const nextHash = key === "jobs" ? "#jobs" : "";

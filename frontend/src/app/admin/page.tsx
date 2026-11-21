@@ -1,5 +1,9 @@
-import { notFound } from "next/navigation";
+import AdminArea from "@/components/AdminArea";
 
 export default function AdminPage() {
-  notFound();
+  return (
+    <section id="admin" className="page">
+      <AdminArea />
+    </section>
+  );
 }

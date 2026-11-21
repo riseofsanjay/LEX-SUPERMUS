@@ -11,7 +11,7 @@ import {
   PROFESSIONAL_NOTIFICATIONS_UPDATED_EVENT,
 } from "@/lib/professional-content";
 
-type UserRole = "STUDENT" | "ADVOCATE" | "CLIENT";
+type UserRole = "STUDENT" | "ADVOCATE" | "LAW_FIRM" | "ADMIN" | "CLIENT";
 
 type SignedInProfile = {
   name: string;
@@ -21,7 +21,7 @@ type SignedInProfile = {
 };
 
 function isUserRole(role: string): role is UserRole {
-  return role === "STUDENT" || role === "ADVOCATE" || role === "CLIENT";
+  return role === "STUDENT" || role === "ADVOCATE" || role === "LAW_FIRM" || role === "ADMIN" || role === "CLIENT";
 }
 
 type NetworkDestination =
@@ -76,7 +76,7 @@ export default function SiteHeader() {
   const [notificationError, setNotificationError] = useState("");
 
   const isProfessionalNetworkPage =
-    pathname.startsWith("/feed") || pathname === "/student" || pathname === "/advocate";
+    pathname.startsWith("/feed") || pathname === "/student" || pathname === "/advocate" || pathname === "/firm";
 
   useEffect(() => {
     setMenuOpen(false);
@@ -131,7 +131,7 @@ export default function SiteHeader() {
     if (!isProfessionalNetworkPage) return;
     const syncDestination = () => {
       const hash = window.location.hash.slice(1);
-      if (pathname === "/student" || pathname === "/advocate") {
+      if (pathname === "/student" || pathname === "/advocate" || pathname === "/firm") {
         const destinationByHash: Record<string, NetworkDestination> = {
           jobs: "jobs",
           resume: "jobs",
@@ -171,7 +171,11 @@ export default function SiteHeader() {
     ? "/client"
     : profile.role === "STUDENT"
       ? "/student"
-      : "/advocate";
+      : profile.role === "LAW_FIRM"
+        ? "/firm"
+        : profile.role === "ADMIN"
+          ? "/admin"
+          : "/advocate";
 
   function handleLogout() {
     [
@@ -323,7 +327,11 @@ export default function SiteHeader() {
             {renderNetworkLink(
               "jobs",
               "Jobs",
-              profile.role === "ADVOCATE" ? "/advocate#jobs" : "/student#jobs",
+              profile.role === "ADVOCATE"
+                ? "/advocate#jobs"
+                : profile.role === "LAW_FIRM"
+                  ? "/firm#work"
+                  : "/student#jobs",
             )}
             {profile.role === "ADVOCATE" && (
               <>
@@ -364,7 +372,7 @@ export default function SiteHeader() {
             </Link>
           ))}
 
-          {(profile.role === "STUDENT" || profile.role === "ADVOCATE") && (
+          {(profile.role === "STUDENT" || profile.role === "ADVOCATE" || profile.role === "LAW_FIRM") && (
             <Link
               href="/feed"
               className={`navbtn${isActive("/feed") ? " active" : ""}`}
