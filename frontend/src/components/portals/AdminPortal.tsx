@@ -8,6 +8,9 @@ const TABS = [
   { key: "queue", label: "✓ Verification Queue" },
   { key: "users", label: "♙ User Management" },
   { key: "content", label: "▤ Content Management" },
+  { key: "library", label: "⚖ Legal Library" },
+  { key: "ai", label: "AI Monitoring" },
+  { key: "security", label: "Security & Audit" },
 ];
 
 /**
@@ -73,6 +76,30 @@ export default function AdminPortal() {
             Manage statutes, judgments, source metadata and version history.
           </p>
           <div className="item">Legal library ingestion and review queue</div>
+        </>
+      )}
+      {tab === "library" && (
+        <>
+          <h1>Legal Library Management</h1>
+          <p className="sub">Library sources, judgments, current affairs and metadata.</p>
+          <div className="rowcards">
+            <article className="item"><h3>Library sources</h3><p>Manage authoritative source metadata and coverage.</p></article>
+            <article className="item"><h3>Judgment review</h3><p>Review Supreme Court and High Court record updates.</p></article>
+          </div>
+        </>
+      )}
+      {tab === "ai" && (
+        <>
+          <h1>AI Monitoring</h1>
+          <p className="sub">Monitor AI usage and retain mandatory source verification notices.</p>
+          <div className="notice">Production AI monitoring is not connected.</div>
+        </>
+      )}
+      {tab === "security" && (
+        <>
+          <h1>Security &amp; Audit Logs</h1>
+          <p className="sub">Platform security configuration and audit review.</p>
+          <div className="item">Audit logs and security configuration require a production backend.</div>
         </>
       )}
     </PortalShell>

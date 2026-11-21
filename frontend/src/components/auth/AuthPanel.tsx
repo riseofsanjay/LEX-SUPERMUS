@@ -30,6 +30,14 @@ const PROFILE_FIELDS: Record<ProfessionalRole, string[]> = {
     "practiceAreas",
     "verificationConsent",
   ],
+  LAW_FIRM: [
+    "fullName",
+    "email",
+    "firmName",
+    "registrationNumber",
+    "practiceAreas",
+  ],
+  ADMIN: [],
 };
 
 function getAge(dateOfBirth: string): number | null {
@@ -193,7 +201,7 @@ export default function AuthPanel() {
       );
       window.localStorage.setItem("lex-supermus-profile-completion", "100");
       window.dispatchEvent(new Event("lex-auth-updated"));
-      router.push("/feed");
+      router.push(role === "LAW_FIRM" ? "/firm" : "/feed");
       setLoading(false);
       return;
     }
@@ -228,7 +236,9 @@ export default function AuthPanel() {
     window.localStorage.setItem(getSavedProfileKey(role, "avatar"), profilePhoto);
     const profileFields = role === "STUDENT"
       ? ["fullName", "dateOfBirth", "email", "phone", "institution", "degree", "yearOfStudy", "city"]
-      : [
+      : role === "LAW_FIRM"
+        ? ["fullName", "email", "phone", "firmName", "registrationNumber", "practiceAreas", "city"]
+        : [
           "fullName",
           "dateOfBirth",
           "email",
@@ -252,7 +262,7 @@ export default function AuthPanel() {
       window.localStorage.setItem("lex-supermus-advocate-verification-status", "PENDING_REVIEW_DEMO");
     }
     window.dispatchEvent(new Event("lex-auth-updated"));
-    router.push("/feed");
+    router.push(role === "LAW_FIRM" ? "/firm" : "/feed");
     setLoading(false);
   }
 
@@ -282,6 +292,11 @@ export default function AuthPanel() {
               <span><b>Advocate</b><small>Legal professionals and practitioners</small></span>
               <span className="professional-role-arrow" aria-hidden="true">→</span>
             </button>
+            <button type="button" className="professional-role-option" onClick={() => chooseRole("LAW_FIRM")}>
+              <span aria-hidden="true">🏛</span>
+              <span><b>Law Firm</b><small>Firm workspace and advocate associations</small></span>
+              <span className="professional-role-arrow" aria-hidden="true">→</span>
+            </button>
           </div>
           <p className="auth-disclaimer">Looking for legal support? Use the separate Client Portal.</p>
         </div>
@@ -290,7 +305,9 @@ export default function AuthPanel() {
   }
 
   const isStudent = role === "STUDENT";
-  const roleLabel = isStudent ? "Student" : "Advocate";
+  const isFirm = role === "LAW_FIRM";
+  const roleLabel =
+    role === "STUDENT" ? "Student" : role === "LAW_FIRM" ? "Law Firm" : "Advocate";
 
   return (
     <div className="auth-page">
@@ -469,6 +486,26 @@ export default function AuthPanel() {
                         <option>5th Year</option>
                         <option>Graduate</option>
                       </select>
+                    </div>
+                  </>
+                ) : isFirm ? (
+                  <>
+                    <div className="professional-field">
+                      <label htmlFor="firm-name">Firm name</label>
+                      <input id="firm-name" name="firmName" autoComplete="organization" required />
+                    </div>
+                    <div className="professional-field">
+                      <label htmlFor="firm-registration-number">Registration number</label>
+                      <input id="firm-registration-number" name="registrationNumber" required />
+                    </div>
+                    <div className="professional-field professional-field--full">
+                      <label htmlFor="firm-practice-areas">Practice areas</label>
+                      <input
+                        id="firm-practice-areas"
+                        name="practiceAreas"
+                        placeholder="e.g. Litigation, corporate, tax"
+                        required
+                      />
                     </div>
                   </>
                 ) : (

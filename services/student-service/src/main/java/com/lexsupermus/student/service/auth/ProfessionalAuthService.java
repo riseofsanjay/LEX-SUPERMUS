@@ -29,7 +29,9 @@ public class ProfessionalAuthService {
             UserRole.STUDENT,
             Set.of("lawSchool", "degree", "studyYear", "graduationYear", "legalInterests"),
             UserRole.ADVOCATE,
-            Set.of("stateBarCouncil", "enrolmentNumber", "yearsExperience", "practiceAreas"));
+            Set.of("stateBarCouncil", "enrolmentNumber", "yearsExperience", "practiceAreas"),
+            UserRole.LAW_FIRM,
+            Set.of("firmName", "registrationNumber", "practiceAreas"));
 
     private final ProfessionalAccountRepository accounts;
     private final PasswordEncoder passwordEncoder;
@@ -152,7 +154,7 @@ public class ProfessionalAuthService {
         try {
             UserRole parsed = UserRole.valueOf(role.trim().toUpperCase(Locale.ROOT));
             if (!REQUIRED_PROFILE_FIELDS.containsKey(parsed)) {
-                throw new AuthException(HttpStatus.BAD_REQUEST, "Only student and advocate accounts can register.");
+                throw new AuthException(HttpStatus.BAD_REQUEST, "Only student, advocate, and law firm accounts can register.");
             }
             return parsed;
         } catch (IllegalArgumentException exception) {

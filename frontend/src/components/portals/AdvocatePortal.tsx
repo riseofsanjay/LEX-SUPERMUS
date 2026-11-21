@@ -13,6 +13,9 @@ const TABS = [
   { key: "opportunities", label: "Jobs & Internships" },
   { key: "verification", label: "Bar Council Verification" },
   { key: "appointments", label: "Appointments" },
+  { key: "network", label: "Professional Network" },
+  { key: "library", label: "Legal Library" },
+  { key: "ai", label: "Legal AI" },
 ];
 
 /**
@@ -53,6 +56,18 @@ export default function AdvocatePortal() {
   }, []);
 
   function selectTab(key: string) {
+    if (key === "network") {
+      window.location.assign("/feed");
+      return;
+    }
+    if (key === "library") {
+      window.location.assign("/library");
+      return;
+    }
+    if (key === "ai") {
+      window.location.assign("/ai");
+      return;
+    }
     setTab(key);
     if (key === "opportunities") setJobsSection("opportunities");
     const nextHash = key === "opportunities" ? "#jobs" : `#${key}`;

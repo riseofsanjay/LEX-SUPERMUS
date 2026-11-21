@@ -19,7 +19,7 @@ import {
   PROFESSIONAL_FEED_STORAGE_KEY,
 } from "@/lib/professional-profile";
 
-type ProfessionalRole = "STUDENT" | "ADVOCATE";
+type ProfessionalRole = "STUDENT" | "ADVOCATE" | "LAW_FIRM" | "ADMIN";
 type FeedRole = ProfessionalRole | "COMMUNITY";
 type FeedView = "FOR_YOU" | "NETWORK";
 type FeedPage = "HOME" | "NETWORK" | "MESSAGING" | "NOTIFICATIONS";
@@ -119,7 +119,7 @@ function isFeedComment(value: unknown): value is FeedComment {
   return (
     typeof comment.id === "string" &&
     typeof comment.author === "string" &&
-    (comment.role === "STUDENT" || comment.role === "ADVOCATE") &&
+    (comment.role === "STUDENT" || comment.role === "ADVOCATE" || comment.role === "LAW_FIRM" || comment.role === "ADMIN") &&
     typeof comment.text === "string" &&
     typeof comment.createdAt === "number"
   );
@@ -143,7 +143,7 @@ function isFeedPost(value: unknown): value is FeedPost {
   return (
     typeof post.id === "string" &&
     typeof post.author === "string" &&
-    (post.role === "STUDENT" || post.role === "ADVOCATE" || post.role === "COMMUNITY") &&
+    (post.role === "STUDENT" || post.role === "ADVOCATE" || post.role === "LAW_FIRM" || post.role === "ADMIN" || post.role === "COMMUNITY") &&
     typeof post.text === "string" &&
     Array.isArray(post.tags) &&
     post.tags.every((tag) => typeof tag === "string") &&
@@ -160,6 +160,8 @@ function isFeedPost(value: unknown): value is FeedPost {
 function formatRole(role: FeedRole) {
   if (role === "STUDENT") return "Law student";
   if (role === "ADVOCATE") return "Advocate";
+  if (role === "LAW_FIRM") return "Law firm";
+  if (role === "ADMIN") return "Administrator";
   return "Legal community";
 }
 

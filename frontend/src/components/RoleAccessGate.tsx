@@ -3,7 +3,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 
-type ProfessionalRole = "STUDENT" | "ADVOCATE";
+type ProfessionalRole = "STUDENT" | "ADVOCATE" | "LAW_FIRM" | "ADMIN";
 
 export default function RoleAccessGate({
   role,

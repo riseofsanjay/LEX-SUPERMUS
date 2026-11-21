@@ -34,6 +34,19 @@ const PROFILE_FIELDS: Record<ProfessionalRole, ProfileField[]> = {
     { key: "city", label: "City" },
     { key: "verificationConsent", label: "Verification consent" },
   ],
+  LAW_FIRM: [
+    { key: "fullName", label: "Firm contact name" },
+    { key: "email", label: "Email address" },
+    { key: "phone", label: "Phone number" },
+    { key: "firmName", label: "Firm name" },
+    { key: "registrationNumber", label: "Registration number" },
+    { key: "practiceAreas", label: "Practice areas" },
+    { key: "city", label: "City" },
+  ],
+  ADMIN: [
+    { key: "fullName", label: "Full name" },
+    { key: "email", label: "Email address" },
+  ],
 };
 
 function isProfileDetails(value: unknown): value is Record<string, string> {

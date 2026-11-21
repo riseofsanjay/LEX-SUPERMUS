@@ -6,6 +6,7 @@ package com.lexsupermus.student.model.enums;
 public enum UserRole {
     STUDENT,
     ADVOCATE,
+    LAW_FIRM,
     CLIENT,
     ADMIN
 }
